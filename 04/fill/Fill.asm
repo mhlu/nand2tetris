@@ -12,3 +12,47 @@
 // the screen should remain fully clear as long as no key is pressed.
 
 // Put your code here.
+
+(OUTER)
+    @KBD
+    D=M
+
+    @color
+    M=-1
+    @INNER
+    D;JNE
+
+    @color
+    M=0
+    @INNER
+    0;JMP
+
+(INNER)
+    @i
+    M=0
+
+    (FOR)
+    @i
+    D=M
+    @8192 //256*512/16
+    D=D-A
+    @OUTER
+    D;JEQ // if i == 8192; break
+
+    @SCREEN
+    D=A
+    @i
+    D=D+M
+    @loc
+    M=D
+    @color
+    D=M
+    @loc
+    A=M
+    M=D
+
+    @i
+    M=M+1
+
+    @FOR
+    0;JMP
